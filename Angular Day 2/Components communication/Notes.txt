@@ -1,0 +1,55 @@
+Component communication in Angular
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-> In application development we need to exchange the data between components. 
+
+->  In Angular, a component can receive data from its parent and  components can send data to their parents.
+
+-> Angular core library provides two decorators that are used to specify the communication flow (downward and upward) between parent and child.
+ 
+	1. @Input()  decorator  -  downward
+	2. @Output()  decorator - upward
+ 			
+			
+ @Input()  decorator
+~~~~~~~~~~~~~~~~
+->  Inputs allow you to pass data from parent component to a child component.	
+
+->  We need to  mark input properties using @Input decorator.
+
+-> We can use @Input with different data types such as string, number, array and user defined class.
+
+-> This is one way communication from parent to child.
+
+-> We can get the values from parent component through property binding. 
+
+Usage
+~~~~~
+@Input()  
+public  name:string;
+
+@Input()
+public dept:any = {};
+---------------------------------------------------------------------
+
+
+
+@Output()  decorator
+~~~~~~~~~~~~~~~~~
+->  Outputs allow you to send data from child component  to a parent component
+
+->  @Output decorator is used to mark an output property in order to achieve custom event binding.
+
+ -> This is also one way communication from child to parent component.
+ 
+  -> This property name becomes custom event name for  calling parent component method.
+  
+  Usage
+  ~~~~~~
+  @Output() 
+  onEventName = new EventEmitter<arg_type>();
+  
+  @Output() 
+  onDeptRemovedEvent = new EventEmitter<string>();
+ ------------------------------------------------------------------------
+ 
+ 

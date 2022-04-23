@@ -1,0 +1,15 @@
+<h3>Components Communication in Angular</h3>
+<hr/>
+
+Select Job  :
+<select [(ngModel)]="selectedJob" (change)="getEmployees()">
+  <option>All Employees</option>
+  <option>MANAGER</option>
+  <option>SALESMAN</option>
+  <option>CLERK</option>
+</select>
+<br/><br/>
+
+<div style="border:2px solid blue;  padding:5px;">
+    <app-emps [empData]="tempArray"></app-emps>
+</div>

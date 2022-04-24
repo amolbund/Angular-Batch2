@@ -1,0 +1,25 @@
+<h1 align="center">
+    <ng-content></ng-content>
+</h1>
+
+ <table width="500"  border="2">
+  <tr>
+    <th>Emp Number</th>
+    <th>Emp Name</th>
+    <th>Emp Job</th>
+    <th>Emp Salary</th>
+    <th>Emp Deptno</th>
+  </tr>
+
+  <tr *ngFor="let item of tempArray">
+      <td>{{item.empno}}</td>
+      <td>{{item.ename}}</td>
+      <td>{{item.job}}</td>
+      <td>{{item.sal}}</td>
+      <td>{{item.deptno}}</td>
+  </tr>
+</table>
+
+<h1 align="center">
+  <ng-content select="[footer]"></ng-content>
+</h1>

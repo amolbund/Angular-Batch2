@@ -1,0 +1,12 @@
+<h3>Usage of @ViewChild and @ViewChildren</h3>
+<hr/>
+
+<button (click)="button1_click()">Get Details</button>
+<hr/>
+
+<p  #p1>Hello World</p>
+<hr/>
+<app-dept-details *ngFor="let dept of deptsArray"
+                  (onDeptRemove)="deptRemove_parent($event)"
+                  [deptObj]="dept"></app-dept-details>
+

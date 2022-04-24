@@ -1,0 +1,71 @@
+DOM Operations using @ViewChild()  and @ViewChildren()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@ViewChild() 		---			Single
+@ViewChildren()	---			Multiple
+
+
+--> Property decorator that configures a view(template/UI) query. 
+--> The change detector looks for the first element or the directive matching the selector in the view DOM.
+--> ViewChild refers first occurrence of the specified element.
+--> We can perform get/set operations on all the properties of ViewChild/ViewChildren properties.
+ 
+
+--> Used to access the child tags (DOM Element). 
+		--> access child tag members :  props and methods
+		--> applicable to html tag or other component
+		->  ElementRef / DemoComponent
+		
+Usage:		
+
+	Library Classes:			ViewChild, ViewChildren, QueryList
+		
+		 	
+		 @ViewChild(DeptDetailsComponent)   deptChild!: DeptDetailsComponent;		 
+		 @ViewChildren(DeptDetailsComponent) deptChildren!: QueryList<DeptDetailsComponent>;
+		  
+		  
+		 @ViewChild('p1') paraRef!: ElementRef;
+
+			--- p1 is a template variable.			
+						<p   #p1>Hello World</p>
+			
+			--- all html tags are referred with ElementRef class.
+			
+ 
+
+*.component.ts		---		application logic
+*.component.html	---		ui logic
+		----> child tags
+				1--- html tags
+				2--- other components
+
+
+
+app.component.html
+	
+		<app-demo>		----	 child for app components
+		<p>		----	 child for app components
+		<h1>		----	 child for app components
+
+
+
+
+
+
+ ngAfterViewInit(){
+    console.log(this.deptChild);
+    console.log(this.deptChild.deptObj);
+
+    console.log(this.deptChildren);
+    console.log(this.deptChildren.toArray());
+
+    console.log(this.paraRef.nativeElement);
+    console.log(this.paraRef.nativeElement.innerHTML);
+ }
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+

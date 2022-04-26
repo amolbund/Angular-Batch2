@@ -1,0 +1,37 @@
+Custom Pipes in Angular
+~~~~~~~~~~~~~~~~~~~~~
+
+> Add new pipe using angular cli
+		>   ng  g  p  pipename
+		>   ng  g  p  gender
+		
+		
+1. Define custom pipe class		
+		- @Pipe()  decorator
+		- PipeTransform  interface
+					-  transform() method
+
+2. Register pipe in app module
+	- app.module.ts
+		- declarations
+		
+3. Use custom pipe in template
+		{{ variable |  pipename}}
+		
+
+
+Creating custom pipe:
+
+	input		---			string
+	output		---			string
+
+
+Task for creating custom pipe
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create a data with 
+studentName
+Marks 
+Grade
+
+apply a grade pipe on the marks

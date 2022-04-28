@@ -1,0 +1,67 @@
+Dependency Injection  and Services in Angular
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+--> Dependencies are services or objects that a class needs to perform its function. 
+
+--> Dependency injection, or DI, is a design pattern in which a class requests dependencies from external sources rather than creating them.
+
+--> Angular's DI framework provides dependencies to a class upon instantiation. Use Angular DI to increase flexibility and modularity in your applications.
+
+
+
+What is Service and Why it is required?
+
+
+--> A Service is a class that provide common functionality which can be used by other programming items of Angular Application. (Eg:  Components, Service, Directive, etc...)
+
+--> Service class are decorate with @Injectable()
+
+
+Pre-defined Service in Angular
+~~~~~~~~~~~~~~~~~~~~~~~~
+1.  HttpClient
+2.  ActivatedRoute
+3.  Router
+4.  ElementRef
+5.  TemplateRef
+6.   ViewContainerRef
+
+
+
+How to create Services?
+
+	ng g s db
+	ng g s data
+	ng g s user
+	....
+	
+	
+	>	File:		user.service.ts
+	
+	import { Injectable } from '@angular/core';
+
+	@Injectable({
+	  providedIn: 'root'
+	})
+	export class UserService {
+
+	  constructor() { }
+	}
+
+
+
+
+Note:
+
+-->  The @Injectable() decorator specifies that Angular can use this class in the DI system. 
+
+
+Service Injection
+~~~~~~~~~~~~~
+
+	constructor(private  serviceObj:ServiceClassName)
+	{
+				
+	}
+
+

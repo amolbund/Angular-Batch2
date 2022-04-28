@@ -1,0 +1,21 @@
+Configure JSON Server
+~~~~~~~~~~~~~~~~~~~~~~
+
+>	npm  	i 	-g 	json-server
+
+>  Prepare *.json  (db_depts.json)
+
+	{
+		"depts" :  [],
+		"emps" : []
+	}
+
+>    go to the file path where you have save your .json file and open CMD and hit below command 
+
+
+>	json-server  --watch db_depts.json
+
+
+	http://localhost:3000
+	http://localhost:3000/depts
+	http://localhost:3000/emps

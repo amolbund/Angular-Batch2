@@ -1,0 +1,213 @@
+				Routing in Angular
+				~~~~~~~~~~~~~~~~
+				
+What & Why routing?
+
+	-->  Routing 	
+	
+			-->  mapping incoming requests with corresponding components. 			
+			
+					/Login		---			LoginComponent
+					/Emps		---			EmpsComponent
+					.....
+
+
+	-->  Regular  Navigation 
+		
+						<a href="login.html">Login</a>
+						<a href="login.php">Login</a>
+						....
+		Angular Navigation
+						
+						<a href="LoginComponent">Login</a>	--- Not applicable
+						
+						<a href="/Login">Login</a>	 
+						<a href="/Emps">Employees</a>	 
+						
+				-> Using	routing concept to implement navigation. 			
+				
+
+Angular Router features
+~~~~~~~~~~~~~~~~~~~~~
+	--> Angular provides required modules, classes, directives, components  to implement routing. 
+	
+			1.  RouterModule
+			2.  Routes
+			3.  RouterLink
+			4.  RouterOutlet
+			5.  ActivatedRoute
+	
+	
+	--> We need to provide route details (route configuration) so that angular will perform actions accordingly. 
+	
+	--> If any request comes to angular application, angular framework will fetch the component details based on route configuration.
+	
+	--> It process desired/requested component and render output in browser. 
+	
+	
+
+
+How to setup routing? 
+Talk about route config file?
+RouterModule.forRoot() method
+
+		
+	File:			1.  AppRouting Module
+					(or)
+					2.  App Module
+					
+					
+	Steps	
+	1.    Prepare the routes 
+	
+			const  appRoutes:Routes = [
+					{  path   :   "",    component :  HomeComponent   },
+					{  path   :   "Login",    component :  LoginComponent   },
+					{  path   :   "Emps",    component :  EmpsComponent   },
+					......
+			];
+	
+	2.    Register the routes	
+	
+			@NgModule({
+				....
+				....
+				imports  :   [  RouterModule.forRoot( appRoutes )   ]				
+			})
+			
+			
+	
+		
+Router links and router outlet			
+~~~~~~~~~~~~~~~~~~~~~~~
+
+	<a  [routerLink]=" ['/'] "> Home </a>
+	<a  [routerLink]=" ['/Emps'] "> Employees </a>
+	<a  [routerLink]=" ['/Login'] "> Employees </a>
+	.....
+	
+
+
+	<router-outlet></router-outlet>
+
+Note:  router-outlet is like a placeholder where the selected component results should render/display. 
+
+
+
+
+
+
+How to navigate through code? 
+How to do pogrammatic navigation?
+
+	ActivatedRoute  
+			---  Service class	
+			---  Used to read route parameters
+	
+	Router  
+			--- Service Class
+			--- used to implement pogrammatic navigation
+			
+				Eg:   this.router.navigate(['/Emps']);
+
+
+
+
+
+-----------------------------------------------------------------------------
+Passing params to route
+
+	
+	-->		{path : “details/:id", component: DetailsComponent}
+
+	-->		<a [routerLink]="['/Details‘,12345]"> 	Details  <a> 
+
+
+Fetching params from a route
+
+		ActivatedRoute  
+			---  Service class	
+			---  Used to read route parameters
+	
+Using snapshot and params prop
+
+	this.route.snapshot.params["id"]
+
+----------------------------------------------------------------------------------------------------
+
+
+Implement  Authentication in Angular Application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+1.  Create CanActivate Guard Service	:		AuthGuardService
+2.  Apply canActivate guard on the route to which you want to apply security 
+3.  Create Login component 
+			
+			
+--------------------------
+
+1.  CanActivate Guard
+
+	---     A service class that we need create
+	---		Executes before the selected route is process by angular
+	---		Executes logic that will verify whether the user is authorized or not
+	
+					-->  Valid User / Authenticated User --	proceed to process that route
+					-->  Invalid User  --		redirect to Login Component
+ 
+									this.router.navigate(['/Login']);
+
+
+Router  
+			--- Service Class
+			--- used to implement pogrammatic navigation
+			
+				Eg:   this.router.navigate(['/Emps']);
+				
+				
+				
+		AuthGuardService class:
+
+
+		export  AuthGuardService implements   CanActivate
+		{
+				canActivate(...)  : boolean
+				{					
+					if( sessionStorage.getItem("AUTH_TOKEN")  == null)
+					{
+						// invalid user	
+						//  redirect to login
+						//  use query string to send requested route details
+						this.router.navigate(['/Login']);
+						return false;							
+					}
+					else
+					{
+						// valid user		
+						return true;		
+					}	
+				}
+		}			
+
+
+
+2.    	Apply on the route to which you want to apply security 
+
+	   { path :  "Emps",   component: EmpsComponent,   canActivate :  [AuthGuardService]  },
+
+
+
+3.  Create Login component 
+
+
+		a.   Verify the credentials  uid/pwd 	----		check with static/db/json/rest api/
+		b.    valid  user:
+		
+				--  create session token 
+						sessionStorage.setItem("AUTH_TOKEN",  this.uid);
+				--	redirect to Emps  route
+								this.router.navigate(['/Emps']);
+				
+		c.    invalid  user:			
+				error message

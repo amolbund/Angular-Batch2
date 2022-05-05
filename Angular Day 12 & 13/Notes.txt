@@ -1,0 +1,136 @@
+Advanced features in Angular Routing 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+1. Applying Deactivate Guard on Routing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. CanActivate guard  on routes
+
+	---  Before component is processing 
+
+2. CanDeactivate guard  on routes
+
+	---  After component is processed
+	---  at the time of unloading
+	---  At the time of navigate to other route from the current one.
+	
+	
+	
+	
+CanDeactivate Guard in Angular Routing 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+--> CanDeactivate guard help us to deciding if a route can be deactivated.
+--> If guard return true, navigation continues. 
+--> If guard returns false, navigation is cancelled.
+
+Interface:
+
+	interface CanDeactivate<T> 
+	{
+		canDeactivate(...): boolean
+	}
+
+
+Implementation
+~~~~~~~~~~~~~~
+1. Create a component on which you want to implements deactivate facility. 
+		a.  Add a method that will make the decision --- return true/false.
+	
+2. Create Deactivate Guard Service
+
+	export class DeactivateGuard implements CanDeactivate<RegisterComponent>
+	{
+		canDeactivate(...): boolean
+	}
+
+	
+3. Apply Deactivate Guard on the route
+ 
+ { path: 'Register', component: RegisterComponent, canDeactivate:[DeactivateGuard] },
+
+
+----------------------------------------------------------------------------------------------
+
+
+
+2. Lazy loading modules in Routing
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+>	ng  g  m  admin		
+		/admin/admin.module.ts
+		
+		
+>  ng  g   m   admin   --route  admin  --module app.module
+
+			--->   admin module
+			--->   admin routing module
+			--->   admin component			
+			--->  Register and Generate separate route --- with lazy loading option in  app.routing.module
+			
+				 { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+				 
+				 
+		Note:   In the above lazy loading statement,  admin module is load in the memory when we get the request for admin route. 		 
+
+	
+		CREATE src/app/admin/admin-routing.module.ts (339 bytes)
+		CREATE src/app/admin/admin.module.ts (350 bytes)
+		CREATE src/app/admin/admin.component.html (20 bytes)
+		CREATE src/app/admin/admin.component.spec.ts (619 bytes)
+		CREATE src/app/admin/admin.component.ts (271 bytes)
+		CREATE src/app/admin/admin.component.css (0 bytes)
+		UPDATE src/app/app-routing.module.ts (1214 bytes)
+
+----------------------------------------------------------------------------------------------------------------
+
+Admin.Routing.Module
+
+		const routes: Routes = [
+		  { path: '', component: AdminComponent },
+		  { path: 'projects', component: ProjectsComponent },
+		  { path: 'branches', component: BranchesComponent }
+		];
+
+
+Create hyperlink for child routes
+
+
+		  <a [routerLink]="['/admin']">Admin</a>  
+		  <a [routerLink]="['/admin/projects']">Projects</a>  
+		  <a [routerLink]="['/admin/branches']">Branches</a>  
+		  
+-----------------------------------------------------------------------------------------------------		  
+
+
+3. Nested Routes 
+~~~~~~~~~~~~~
+
+
+1.  Create child routes as children in route configuation 
+
+		const routes: Routes = [
+		  { path: '', component: AdminComponent,
+		  children: [
+			{path: '', redirectTo: 'projects', pathMatch : "full"},
+			{ path: 'projects', component: ProjectsComponent },
+			{ path: 'branches', component: BranchesComponent }
+		  ]
+		}];
+		
+		
+2.  Create the hyperlinks inside the admin component
+
+
+	<a [routerLink]="['projects']">Projects</a>  |
+	<a [routerLink]="['branches']">Branches</a>
+
+
+
+3.  Add separate router-outlet  in admin component
+
+		<router-outlet></router-outlet>
+
+----------------------------------------------------------------------------------------------------------
